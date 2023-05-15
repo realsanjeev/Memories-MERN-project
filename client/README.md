@@ -1,73 +1,30 @@
-# Getting Started with Create React App
+## Create React App
+```
+npx create-rect-app <project_name>
+cd <project_name>
+npm start
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# Solving problem of redux-thunk 
+## Solving problem of redux-thunk 
 npm install --save redux-thunk
+
+## React Redux
+![Redux-Architecture](https://static.javatpoint.com/tutorial/reactjs/images/react-redux-architecture.png)
+
+Redux is a predictable state container for JavaScript applications, commonly used with React. It follows a unidirectional data flow pattern and helps manage the application state in a centralized manner. The architecture diagram demonstrates the flow of data and actions within a Redux-powered React application.
+
+Here are the key components and their interactions shown in the diagram:
+
+React Components: These are the UI components of your application, responsible for rendering the views and handling user interactions.
+
+Actions: Actions represent events or user interactions that trigger a change in the application state. They are plain JavaScript objects with a type property indicating the type of action and additional data as needed.
+
+Action Creators: Action creators are functions that create and return action objects. They encapsulate the logic of creating actions with the required data.
+
+Reducers: Reducers are pure functions responsible for handling the state changes based on the dispatched actions. They take the current state and an action as input and return a new state object. Reducers should not modify the existing state; instead, they create a new state object.
+
+Store: The store is the central place that holds the application state. It is created using the createStore function provided by Redux. The store provides methods to dispatch actions, access the current state, and subscribe to state changes.
+
+Middleware: Middleware sits between the dispatching of an action and the moment it reaches the reducer. It can intercept actions, modify them, or execute additional logic. Popular middleware examples include redux-thunk for handling asynchronous actions and redux-logger for logging actions and state changes.
+
+Store Subscription: Components can subscribe to the store to receive updates whenever the state changes. This enables components to react to state changes and update their UI accordingly.
