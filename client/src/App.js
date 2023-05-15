@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -39,6 +40,14 @@ const App = () => {
                 </Container>
             </Grow>
         </Container>
+=======
+import React from "react";
+const App = () => {
+    return (
+        <div>
+            <h1>App</h1>
+        </div>
+>>>>>>> parent of d1c0f4d (adding src/style.js in project)
     )
 }
 

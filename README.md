@@ -9,8 +9,7 @@ see ip of codespace
 curl icanhazip.com
 ```
 
+Used for UI
 ```
-npm install @mui/material @emotion/react @emotion/styled
+npm install @material-ui/core
 ```
-
-40:40
