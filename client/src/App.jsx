@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import Posts from './components/Posts/Posts';
-import Form from './components/Form/Form';
-import { getPosts } from './actions/posts';
+import Posts from "./components/Posts/Posts";
+import Form from "./components/Form/Form";
+import MyApiComponent from "./api/index"
+import { getPosts } from "./actions/posts";
 
-import memories from './images/memories.jpg';
+import memories from "./images/memories.jpg";
 
-import useStyles from './style';
+import useStyles from "./style";
 const App = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
@@ -18,7 +19,9 @@ const App = () => {
         dispatch(getPosts())
     }, [dispatch])
     return (
+      
 <Container maxWidth="lg">
+< MyApiComponent />
       <AppBar className={classes.appBar} position="static" color="inherit">
         <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
         <img className={classes.image} src={memories} alt="icon" height="60" />
