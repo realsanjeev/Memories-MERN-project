@@ -8,7 +8,7 @@ const router = express.Router()
 export const getPosts = async (req, res) => {
     try {
         const postMessages = await PostMessage.find()
-        console.log("get messsage");
+        console.log("Get messsage");
         res.status(200).json(PostMessage);
     } catch(error) {
         res.status(404).json(error.message);
@@ -31,7 +31,7 @@ export const createPost = async (req, res) => {
 
 export const getPost = async (req, res) => {
     const {id} = req.params;
-    console.log("get post");
+    console.log("Get post");
     try {
         const post = await PostMessage.findById(id);
         res.status(200).json(post);
@@ -42,7 +42,7 @@ export const getPost = async (req, res) => {
 
 
 export const updatePost = async (req, res) => {
-    console.log("updating post")
+    console.log("Updating post")
     const { id } = req.params;
     const { title, message, creator, selectedFile, tags } = req.body;
     
@@ -77,6 +77,5 @@ export const likePost = async (req, res) => {
     
     res.json(updatedPost);
 }
-
 
 export default router;

@@ -44,28 +44,3 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
-
-// // Define a schema for the collection
-// const userSchema = new mongoose.Schema({
-//   name: String,
-//   email: String,
-// });
-
-// // Create a model based on the schema
-// const User = mongoose.model('User', userSchema);
-
-// // Create a new user document
-// const newUser = new User({
-//   name: 'John Doe',
-//   email: 'john.doe@example.com',
-// });
-
-// // Save the new user to the database
-// newUser.save()
-//   .then(savedUser => {
-//     console.log('User saved successfully:', savedUser);
-//   })
-//   .catch(error => {
-//     console.error('Error saving user:', error);
-//   });
