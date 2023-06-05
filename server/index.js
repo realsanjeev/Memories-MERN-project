@@ -21,12 +21,12 @@ mongoose.connect(CONNECTION_URL, {
     .then(() => app.listen(PORT, () => {console.log(`Server is Running in Port ${PORT}`)}))
     .catch((error) => console.log(error.message));
 
-    // Access the default connection object
+// Access the default connection object
 const db = mongoose.connection;
 
 // Event listeners for connection status
 db.on('error', (error) => {
-  console.error('MongoDB connection error:', error);
+  console.error('MongoDB connection error: ', error);
 });
 
 db.once('open', () => {
