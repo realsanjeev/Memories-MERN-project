@@ -1,55 +1,61 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@mui/material";
+import moment from "moment";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import moment from "moment";
+import { CardContent, Button, Typography } from "@mui/material";
 
 import { likePost, deletePost } from "../../../actions/posts";
-import useStyles from "./style";
+import { 
+    StyledCard, 
+    StyledCardMedia,
+    Overlay,
+    Overlay2,
+    Details,
+    StyledTitle,
+    StyledCardActions
+} from "./style";
 
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
-    const classes = useStyles();
 
     return (
-        <Card className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-         <div className={classes.overlay}>
+        <StyledCard>
+            <StyledCardMedia image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
+         <Overlay>
                 <Typography variant="h6">{post.creator}</Typography>
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
-            </div>
-            <div className={classes.overlay2}>
+            </Overlay>
+            <Overlay2>
                 <Button style={{ color: "white" }} size="small" onClick={() => setCurrentId(post._id)}>
                     <MoreHorizIcon fontSize="default" />
                 </Button>
-            </div>
-            <div className={classes.details}>
+            </Overlay2>
+            <Details>
                 <Typography variant="body2" color="textSecondary" component="h2">
                     {post.tags.map((tag) => `#${tag}`)}
                 </Typography>
-            </div>
-            <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+            </Details>
+            <StyledTitle gutterBottom variant="h5" component="h2">
                 {post.title}
-            </Typography>
+            </StyledTitle>
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {post.message}
                 </Typography>
             </CardContent>
-            <CardActions className={classes.cardActions}>
+            <StyledCardActions>
                 <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
-                    <ThumbUpIcon fontsize="small" /> Like {post.likePost}
+                    <ThumbUpIcon fontSize="small" /> Like {post.likePost}
                 </Button>
                 <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}>
-                    <DeleteIcon fontsize="small" /> Delete
+                    <DeleteIcon fontSize="small" /> Delete
                 </Button>
 
-            </CardActions>
-        </Card>
+            </StyledCardActions>
+        </StyledCard>
     )
 };
 export default Post;

@@ -1,6 +1,10 @@
-import { styled } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Card, 
+    CardActions, 
+    CardMedia, 
+    Typography} from "@mui/material";
 
-export default styled({
+const styles = {
     media: {
         height: 0,
         paddingTop: "56.25%",
@@ -49,4 +53,20 @@ export default styled({
         display: "flex",
         justifyContent: "spacce-between",
     },
-})
+}
+
+const StyledCard = styled(Card)(styles.card);
+const StyledCardMedia = styled(CardMedia)(styles.media);
+const Overlay = styled("div")(styles.overlay);
+const Overlay2 = styled("div")(styles.ovelay2);
+const Details = styled("div")(styles.details);
+const StyledTitle = styled(Typography)(styles.title);
+const StyledCardActions = styled(CardActions)(styles.cardActions)
+
+export { StyledCard, 
+    StyledCardMedia, 
+    Overlay, 
+    Overlay2, 
+    Details, 
+    StyledTitle,
+    StyledCardActions};

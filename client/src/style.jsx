@@ -23,4 +23,3 @@ const StyledTypography = styled(Typography)(styles.heading);
 const ImageContainer = styled('img')(styles.image);
 
 export { StyledAppBar, StyledTypography, ImageContainer};
-
