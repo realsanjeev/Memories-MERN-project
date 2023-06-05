@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
+import { Container, Grow, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
-import MyApiComponent from "./api/index"
+import MyApiComponent from "./api/index";
 import { getPosts } from "./actions/posts";
 
 import memories from "./images/memories.jpg";
 
-import useStyles from "./style";
+import { StyledAppBar, StyledTypography, ImageContainer } from "./style";
 const App = () => {
-    const classes = useStyles()
     const dispatch = useDispatch()
     const [currentId, setCurrentId] = useState(0)
 
@@ -22,10 +21,10 @@ const App = () => {
       
 <Container maxWidth="lg">
 < MyApiComponent />
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
-        <img className={classes.image} src={memories} alt="icon" height="60" />
-      </AppBar>
+      <StyledAppBar position="static" color="inherit">
+        <StyledTypography variant="h2" align="center">Memories</StyledTypography>
+        <ImageContainer src={memories} alt="icon" height="60" />
+      </StyledAppBar>
       <Grow in>
         <Container>
           <Grid container justify="space-between" alignItems="stretch" spacing={3}>

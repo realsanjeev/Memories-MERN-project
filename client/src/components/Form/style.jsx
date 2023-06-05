@@ -1,16 +1,16 @@
+import { styled } from "@mui/material/styles";
+import { Paper, Button } from '@mui/material';
 
-import { styled } from "@mui/material";
-
-export default styled((theme) => ({
-  root: {
+const styles = {
+  rootContainer: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
+      margin: '8px',
     },
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: '16px',
   },
-  form: {
+  formContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -19,7 +19,15 @@ export default styled((theme) => ({
     width: '97%',
     margin: '10px 0',
   },
-  buttonSubmit: {
-    marginBottom: 10,
+  submitButton: {
+    marginBottom: '10px',
   },
-}));
+};
+
+const RootContainer = styled('div')(styles.rootContainer);
+const StyledPaper = styled(Paper)(styles.paper);
+const FormContainer = styled('form')(styles.formContainer);
+const FileInput = styled('div')(styles.fileInput);
+const SubmitButton = styled(Button)(styles.submitButton);
+
+export { RootContainer, StyledPaper, FormContainer, FileInput, SubmitButton };
