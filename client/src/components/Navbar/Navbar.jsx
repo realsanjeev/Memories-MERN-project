@@ -15,6 +15,7 @@ import { StyledAppBar,
     Profile } from "./styles";
 import * as actionType from "../../constants/actionTypes";
 import memories from "../../images/memories.jpg";
+import MyApiComponent from "../../api";
 
 export default function Navbar() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -40,6 +41,7 @@ export default function Navbar() {
 
     return (
         <StyledAppBar position="static" color="inherit">
+          <MyApiComponent/>
           <BrandContainer>
             <StyledTypography component={Link} to="/" variant="h2" align="center">Memories</StyledTypography>
             <StyledImage src={memories} alt="icon" height="60" />

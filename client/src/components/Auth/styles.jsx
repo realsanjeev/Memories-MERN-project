@@ -5,30 +5,30 @@ import { red } from "@mui/material/colors";
 
 const styles = {
   paper: {
-    marginTop: spacing(8),
+    marginTop: "8px",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: spacing(2),
+    padding: "9px",
   },
   root: {
     '& .MuiTextField-root': {
-      margin: spacing(1),
+      margin: "3px",
     },
   },
   avatar: {
-    margin: spacing(1),
+    margin: "3px",
     backgroundColor: red[500],
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: spacing(3),
+    width: '100%',
+    marginTop: "3px",
   },
   submit: {
-    margin: spacing(3, 0, 2),
+    margin: "3px 0 2px",
   },
   googleButton: {
-    marginBottom: spacing(2),
+    marginBottom: "5px",
   },
 };
 

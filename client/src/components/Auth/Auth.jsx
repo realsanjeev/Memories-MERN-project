@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Grid, Typography, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Icon from './icon';
@@ -15,7 +15,11 @@ import { StyledAvatar,
     GoogleSignButton} from './styles';
 import Input from './Input';
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+const initialState = { firstName: '', 
+                      lastName: '', 
+                      email: '', 
+                      password: '', 
+                      confirmPassword: '' };
 
 const SignUp = () => {
   const [form, setForm] = useState(initialState);
@@ -45,6 +49,7 @@ const SignUp = () => {
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
+    console.log(res)
 
     try {
       dispatch({ type: AUTH, data: { result, token } });
@@ -81,8 +86,8 @@ const SignUp = () => {
           <SubmitButton type="submit" fullWidth variant="contained" color="primary">
             { isSignup ? 'Sign Up' : 'Sign In' }
           </SubmitButton>
+          <GoogleOAuthProvider clientId="520746839658-p0mjpbip89hsubau64jjubfh3nrml53o.apps.googleusercontent.com">
           <GoogleLogin
-            clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com"
             render={(renderProps) => (
               <GoogleSignButton color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Google Sign In
@@ -92,6 +97,7 @@ const SignUp = () => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           />
+          </GoogleOAuthProvider>
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
