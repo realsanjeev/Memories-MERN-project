@@ -5,14 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-import Icon from './icon';
+// import Icon from './icon';
 import { signin, signup } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 import { StyledAvatar, 
     StyledForm, 
     StyledPaper, 
     SubmitButton, 
+     // eslint-disable-next-line
     GoogleSignButton} from './styles';
+     // eslint-disable-next-line
 import Input from './Input';
 
 const initialState = { firstName: '', 
@@ -47,6 +49,7 @@ const SignUp = () => {
   };
 
   const googleSuccess = async (res) => {
+    console.log("res google success: ", res)
     const result = res?.profileObj;
     const token = res?.tokenId;
     console.log(res)
@@ -88,11 +91,6 @@ const SignUp = () => {
           </SubmitButton>
           <GoogleOAuthProvider clientId="520746839658-p0mjpbip89hsubau64jjubfh3nrml53o.apps.googleusercontent.com">
           <GoogleLogin
-            render={(renderProps) => (
-              <GoogleSignButton color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
-                Google Sign In
-              </GoogleSignButton>
-            )}
             onSuccess={googleSuccess}
             onFailure={googleError}
             cookiePolicy="single_host_origin"

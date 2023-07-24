@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { deepPurple } from '@mui/material/colors';
+import { deepPurple, green } from '@mui/material/colors';
 import { AppBar, Typography, Avatar, Toolbar, Button } from "@mui/material";
 
 const styles = {
@@ -41,6 +41,9 @@ const styles = {
     color: deepPurple[500],
     backgroundColor: deepPurple[500],
   },
+  logout: {
+    color: green[700]
+  }
 };
 
 const StyledAppBar = styled(AppBar)(styles.appBar);
@@ -51,6 +54,14 @@ const StyledToolbar = styled(Toolbar)(styles.toolbar);
 const Profile = styled("div")(styles.profile);
 const StyledImage = styled("img")(styles.image);
 const UserName = styled(Typography)(styles.userName);
-const LogoutButton = styled(Button)(styles.log);
+const LogoutButton = styled(Button)(styles.logout);
 
-export { StyledAppBar, BrandContainer, StyledTypography, StyledToolbar, StyledImage, PurpleAvatar, Profile, UserName, LogoutButton };
+export { StyledAppBar,
+  BrandContainer,
+  StyledTypography,
+  StyledToolbar,
+  StyledImage,
+  PurpleAvatar,
+  Profile,
+  UserName,
+  LogoutButton };

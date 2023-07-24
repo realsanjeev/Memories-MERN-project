@@ -1,14 +1,17 @@
 import { styled } from "@mui/material/styles";
-import { spacing } from "@mui/system";
+import { createTheme } from "@mui/system";
 import { Grid } from "@mui/material";
 
+const theme = createTheme({
+  spacing: 4,
+})
 const styles = {
   mainContainer: {
     display: 'flex',
     alignItems: 'center',
   },
   smMargin: {
-    margin: spacing(1),
+    margin: theme.spacing(1),
   },
   actionDiv: {
     textAlign: 'center',
