@@ -34,8 +34,7 @@ const Post = ({ post, setCurrentId }) => {
                 </Button>
             </Overlay2>
             <Details>
-                <Typography variant="body2" color="textSecondary" component="h2">
-                    {post.tags.map((tag) => `#${tag}`)}
+                <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}
                 </Typography>
             </Details>
             <StyledTitle gutterBottom variant="h5" component="h2">

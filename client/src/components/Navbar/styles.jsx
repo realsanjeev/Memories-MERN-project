@@ -64,4 +64,5 @@ export { StyledAppBar,
   PurpleAvatar,
   Profile,
   UserName,
-  LogoutButton };
+  LogoutButton 
+};
