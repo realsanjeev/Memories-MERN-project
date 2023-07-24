@@ -1,23 +1,5 @@
 # MERN project - Memories
 
-
-```
-npx create-react-app client
-```
-see ip of codespace
-```
-curl icanhazip.com
-```
-
-Package for Used for UI
-```
-npm install @material-ui/core
-```
-
-Sure, here's a sample `README.md` file for the "MERN project - Memories":
-
-# MERN project - Memories
-
 This is a MERN (MongoDB, Express, React, Node.js) project called "Memories." It is a web application that allows users to create and store their memories. The project is divided into front-end and back-end components, and it leverages React for the user interface, Express for the server-side, MongoDB for the database, and Node.js for the runtime environment.
 
 ## Getting Started
