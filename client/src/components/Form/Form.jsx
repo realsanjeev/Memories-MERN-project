@@ -10,7 +10,7 @@ import {
   StyledPaper, 
   FormContainer, 
   FileInput, 
-  SubmitButton } from "./style";
+  SubmitButton } from "./styles";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
