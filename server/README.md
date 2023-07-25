@@ -33,3 +33,34 @@ Here's a breakdown of the code in Index.js:
 
 6. Start the server and listen for incoming requests:
    - `app.listen`: Start the server on the specified port and log a message when the server is running
+
+# JWT retrived from GoogleLogin
+ JWT is an encoded JSON object used for securely transmitting information between parties. Let's go through the key-value pairs in the provided JWT payload:
+
+- `aud`: Audience. This represents the intended audience for the token, i.e., the unique identifier of the recipient of the token.
+
+- `azp`: Authorized Party. This indicates the client ID of the OAuth 2.0 client, which is authorized to use this token.
+
+- `email`: The email address associated with the user.
+
+- `email_verified`: A boolean indicating whether the email has been verified.
+
+- `exp`: Expiration Time. This is a UNIX timestamp that represents when the token will expire. It is the number of seconds since January 1, 1970 (UTC).
+
+- `family_name`: The family name (last name) of the user.
+
+- `given_name`: The given name (first name) of the user.
+
+- `iat`: Issued At. This is a UNIX timestamp that represents when the token was issued.
+
+- `iss`: Issuer. This represents the issuer of the token. In this case, it is "https://accounts.google.com," indicating that the token was issued by Google's account service.
+
+- `jti`: JWT ID. A unique identifier for the JWT.
+
+- `name`: The full name of the user.
+
+- `nbf`: Not Before. This is a UNIX timestamp that represents the time before which the token should not be accepted for processing.
+
+- `picture`: The URL of the user's picture or avatar.
+
+- `sub`: Subject. This is the subject of the token, typically a unique identifier for the user.
