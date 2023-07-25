@@ -38,7 +38,7 @@ const styles = {
     alignItems: 'center',
   },
   purple: {
-    color: deepPurple[500],
+    color: "#fff",
     backgroundColor: deepPurple[500],
   },
   logout: {

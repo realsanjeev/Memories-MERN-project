@@ -32,11 +32,11 @@ export default function Navbar() {
         const token = user?.token;
         if (token) {
           const decodedToken = decode(token);
+          console.log(token)
     
           if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
-    
-        setUser(JSON.parse(localStorage.getItem('profile')));
+        setUser(JSON.parse(localStorage.getItem("profile")))
         // eslint-disable-next-line
       }, [location, user]);
 
@@ -50,7 +50,7 @@ export default function Navbar() {
           <StyledToolbar>
             {user?.result ? (
               <Profile>
-                <PurpleAvatar alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</PurpleAvatar>
+                <PurpleAvatar alt={user?.result.name} src={user?.result.picture}>{user?.result.name.charAt(0).toUpperCase()}</PurpleAvatar>
                 <UserName variant="h6">{user?.result.name}</UserName>
                 <Button variant="contained" className="logout" color="secondary" onClick={logout}>Logout</Button>
               </Profile>

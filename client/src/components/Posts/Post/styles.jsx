@@ -2,7 +2,9 @@ import { styled } from "@mui/material/styles";
 import { Card, 
     CardActions, 
     CardMedia, 
-    Typography} from "@mui/material";
+    Typography,
+    ButtonBase
+} from "@mui/material";
 
 const styles = {
     media: {
@@ -53,6 +55,10 @@ const styles = {
         display: "flex",
         justifyContent: "spacce-between",
     },
+    cardAction: {
+        display: "block",
+        textAlign: "initial",
+    },
 }
 
 const StyledCard = styled(Card)(styles.card);
@@ -61,7 +67,8 @@ const Overlay = styled("div")(styles.overlay);
 const Overlay2 = styled("div")(styles.ovelay2);
 const Details = styled("div")(styles.details);
 const StyledTitle = styled(Typography)(styles.title);
-const StyledCardActions = styled(CardActions)(styles.cardActions)
+const StyledCardActions = styled(CardActions)(styles.cardActions);
+const StyledButtonBase = styled(ButtonBase)(styles.cardAction);
 
 export { StyledCard, 
     StyledCardMedia, 
@@ -69,4 +76,6 @@ export { StyledCard,
     Overlay2, 
     Details, 
     StyledTitle,
-    StyledCardActions};
+    StyledCardActions,
+    StyledButtonBase
+};

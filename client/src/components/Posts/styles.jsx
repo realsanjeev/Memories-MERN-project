@@ -77,5 +77,5 @@ const styles = {
   },
 };
 
-const StyledGrid = styled(Grid)(styles.mainContainer);
+const StyledGrid = styled(Grid)(styles.brandContainer);
 export { StyledGrid };
