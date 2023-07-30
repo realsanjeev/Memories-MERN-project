@@ -25,7 +25,7 @@ export default function Navbar() {
 
     const logout = () => {
         dispatch({ type: actionType.LOGOUT })
-        navigate("/auth");
+        navigate("/auth", { replace: true });
         setUser(null);
     }
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Navbar() {
         }
         setUser(JSON.parse(localStorage.getItem("profile")))
         // eslint-disable-next-line
-      }, [location, user]);
+      }, [location, user?.result?.email]);
 
     return (
         <StyledAppBar position="static" color="inherit">

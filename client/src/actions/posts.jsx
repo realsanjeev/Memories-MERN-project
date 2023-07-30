@@ -43,7 +43,7 @@ export const createPost = (post, navigate) => async (dispatch) => {
         const { data } = await api.createPost(post);
 
         dispatch({ type: CREATE, payload: data });
-        navigate(`/posts/${data._id}`);
+        navigate(`/posts/${data._id}`, { replace: true });
     } catch (error) {
         console.log(error.message);
     }
