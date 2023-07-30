@@ -1,23 +1,28 @@
-import React from "react";
 import { Container } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, redirect } from "react-router-dom";
 
+import PostDetails from "./components/PostDetails/PostDetails";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
 
 const App = () => {
-    return (
-      <BrowserRouter>
-      <Container maxWidth="lg">
+  const user = JSON.parse(localStorage.getItem('profile'));
+
+  return (
+    <BrowserRouter>
+      <Container maxWidth="xl">
         <Navbar />
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/auth" exact element={<Auth />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/post" element={<Home />} />
+          <Route path="/posts/search" element={<Home />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/auth" element={<Auth />}/>
         </Routes>
       </Container>
     </BrowserRouter>
-    )
-    }
+  );
+};
 
 export default App;

@@ -8,7 +8,7 @@ import { Card,
 
 const styles = {
     media: {
-        height: 0,
+        height: 10,
         paddingTop: "56.25%",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         backgroundBlendMode: "darken",
@@ -26,6 +26,7 @@ const styles = {
         borderRadius: "15px",
         height: "100%",
         position: "relative",
+        width: "auto",
     },
     overlay: {
         position: "absolute",

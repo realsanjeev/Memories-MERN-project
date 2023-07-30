@@ -8,9 +8,21 @@ const theme = createTheme({
   palette: {
     primary: deepPurple[500],
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
 const styles = {
+  container: {
+    width: "fit-content"
+  },
   mainContainer: {
     borderRadius: 15,
     margin: '30px 0',
@@ -52,7 +64,7 @@ const styles = {
     color: theme.palette.primary,
     backgroundColor: deepPurple[500],
   },
-  [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
+  [[theme.breakpoints.down('sm')]]: {
     appBar: {
       padding: '10px 20px',
     },
@@ -77,5 +89,5 @@ const styles = {
   },
 };
 
-const StyledGrid = styled(Grid)(styles.brandContainer);
+const StyledGrid = styled(Grid)(styles.container);
 export { StyledGrid };
