@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.get('/', getPosts);
 router.post('/', createPost);
-router.get('/:id', getPost);
 router.get('/search', getPostsBySearch)
+router.get('/:id', getPost);
 router.post('/', auth,  createPost);
 router.patch('/:id', auth, updatePost);
 router.delete('/:id', auth, deletePost);
