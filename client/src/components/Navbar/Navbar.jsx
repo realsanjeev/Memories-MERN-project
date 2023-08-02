@@ -11,7 +11,7 @@ import { StyledAppBar,
     StyledImage,
     PurpleAvatar,
     UserName, 
-    BrandContainer, 
+    BrandContainerLink, 
     Profile } from "./styles";
 import * as actionType from "../../constants/actionTypes";
 import memories from "../../images/memories.jpg";
@@ -43,16 +43,16 @@ export default function Navbar() {
     return (
         <StyledAppBar position="static" color="inherit">
           <MyApiComponent/>
-          <BrandContainer>
-            <StyledTypography component={Link} to="/" variant="h2" align="center">Memories</StyledTypography>
+          <BrandContainerLink to="/">
+            <StyledTypography variant="h2" align="center">Memories</StyledTypography>
             <StyledImage src={memories} alt="icon" height="60" />
-          </BrandContainer>
+          </BrandContainerLink>
           <StyledToolbar>
             {user?.result ? (
               <Profile>
                 <PurpleAvatar alt={user?.result.name} src={user?.result.picture}>{user?.result.name.charAt(0).toUpperCase()}</PurpleAvatar>
                 <UserName variant="h6">{user?.result.name}</UserName>
-                <Button variant="contained" className="logout" color="secondary" onClick={logout}>Logout</Button>
+                <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
               </Profile>
             ) : (
               <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>

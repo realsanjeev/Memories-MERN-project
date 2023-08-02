@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { deepPurple, green } from '@mui/material/colors';
 import { AppBar, Typography, Avatar, Toolbar, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const styles = {
   appBar: {
@@ -35,7 +36,7 @@ const styles = {
   },
   brandContainer: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'left',
   },
   purple: {
     color: "#fff",
@@ -47,7 +48,7 @@ const styles = {
 };
 
 const StyledAppBar = styled(AppBar)(styles.appBar);
-const BrandContainer = styled("div")(styles.brandContainer);
+const BrandContainerLink = styled(Link)(styles.brandContainer);
 const StyledTypography = styled(Typography)(styles.heading);
 const PurpleAvatar = styled(Avatar)(styles.purple);
 const StyledToolbar = styled(Toolbar)(styles.toolbar);
@@ -57,7 +58,7 @@ const UserName = styled(Typography)(styles.userName);
 const LogoutButton = styled(Button)(styles.logout);
 
 export { StyledAppBar,
-  BrandContainer,
+  BrandContainerLink,
   StyledTypography,
   StyledToolbar,
   StyledImage,

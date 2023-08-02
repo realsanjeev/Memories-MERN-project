@@ -18,7 +18,7 @@ const auth = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(" err in auth");
+        console.log("Err in auth: ", error.message);
     }
 }
 

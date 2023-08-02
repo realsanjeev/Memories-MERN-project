@@ -54,6 +54,15 @@ const styles = {
     borderRadius: '15px', 
     height: '39vh',
   },
+  commentsOuterContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  commentsInnerContainer: {
+    // height: "200px",
+    overflowY: 'auto',
+    marginRight: "30px",
+  }
 };
 
 const LoadingPaper = styled(Paper)(styles.loadingPaper);
@@ -62,11 +71,16 @@ const Card = styled('div')(styles.card);
 const ImageSection = styled('div')(styles.imageSection);
 const StyledImg = styled("img")(styles.media);
 const Section = styled('div')(styles.section);
+
+const CommentsInnerContainer = styled("div")(styles.commentsInnerContainer);
+const CommentsOuterContainer = styled("div")(styles.commentsInnerContainer);
 export { 
     LoadingPaper,
     RecommendedPosts,
     Card,
     StyledImg,
     Section,
-    ImageSection
+    ImageSection,
+    CommentsInnerContainer,
+    CommentsOuterContainer
  };

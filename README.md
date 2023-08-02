@@ -20,30 +20,25 @@ cd client
 npm install
 ```
 
-3. Create the React client application:
 
-```bash
-npx create-react-app .
-```
-
-4. Retrieve the IP address of your Codespace or server for connecting to mongodb atlas:
+3. Retrieve the IP address of your Codespace or server for connecting to mongodb atlas:
 
 ```bash
 curl icanhazip.com
 ```
 
 
-5. Set up the back-end by installing the required dependencies:
+4. Set up the back-end by installing the required dependencies:
 
 ```bash
 cd ..
 npm install
 ```
 
-6. Start the development server for both front-end and back-end:
+5. Start the development server for both front-end and back-end:
 
 ```bash
-npm run dev
+npm start
 ```
 
 Now, the application should be running on your local machine, with the front-end accessible on `http://localhost:3000` and the back-end running on `http://localhost:5000`.

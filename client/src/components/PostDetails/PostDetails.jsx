@@ -5,6 +5,7 @@ import moment from "moment";
 import { Paper, Typography, Divider, CircularProgress } from "@mui/material";
 
 import {getPost, getPostsBySearch } from "../../actions/posts";
+import CommentSection from "./CommentSection";
 import { LoadingPaper, 
   StyledImg, 
   Card, 
@@ -17,6 +18,7 @@ const Post = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
+
     useEffect(() => {
         dispatch(getPost(id));
     }, [id]);
@@ -28,6 +30,7 @@ const Post = () => {
     }, [post]);
 
     if (!post) return null;
+
     const  openPost = (_id) => navigate(`/posts/${_id}`);
 
     if (isLoading) {
@@ -56,7 +59,7 @@ const Post = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </Section>
         <ImageSection>
