@@ -16,7 +16,6 @@ router.get('/', getPosts);
 router.get('/search', getPostsBySearch)
 router.get('/:id', getPost);
 
-router.post('/', createPost);
 router.post('/', auth, createPost);
 
 router.patch('/:id', auth, updatePost);

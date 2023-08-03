@@ -112,32 +112,46 @@ export const deletePost = async (req, res) => {
 //     res.status(200).json(updatedPost);
 // }
 
-
 export const likePost = async (req, res) => {
-    const { id } = req.params;
-    console.log('like post: ', id);
-    
-    try {
-      if (!req.userId) {
-        return res.json({ message: "Unauthenticated" });
-      }
+  const { id } = req.params;
+  console.log('like post: ', id);
   
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).send(`No post with id: ${id}`);
-      }
-  
-      const post = await PostMessage.findOneAndUpdate(
-        { _id: id },
-        { $addToSet: { likes: req.userId } }, // Add userId to the likes array if it doesn't exist
-        { new: true }
-      );
-  
-      res.status(200).json(post);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Something went wrong." });
+  try {
+    if (!req.userId) {
+      return res.json({ message: "Unauthenticated" });
     }
-  };
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
+
+    const post = await PostMessage.findById(id);
+
+    if (!post) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
+
+    // Check if the userId is already in the likes array
+    const isLiked = post.likes.includes(req.userId);
+
+    if (isLiked) {
+      // If the userId is already in the likes array, remove it
+      post.likes.pull(req.userId);
+    } else {
+      // If the userId is not in the likes array, add it
+      post.likes.addToSet(req.userId);
+    }
+
+    // Save the updated post with the new likes array
+    const updatedPost = await post.save();
+    console.log(updatedPost);
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong." });
+  }
+};
 
 export const commentPost = async (req, res) => {
 

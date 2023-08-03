@@ -48,12 +48,9 @@ const SignUp = () => {
 
   const googleSuccess = async (credentialResponse) => {
     console.log('credentialResponse google success: ', credentialResponse);
-    var res = jwtDecode(credentialResponse.credential);
-    var data = JSON.stringify(res);
-    console.log(data);
     const result = jwtDecode(credentialResponse.credential);
-    const token = result?.jit;
-    console.log(res);
+    console.log(result);
+    const token = result?.token || credentialResponse?.credential;
 
     try {
       dispatch({ type: AUTH, data: { result, token } });

@@ -4,11 +4,14 @@ const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    const { token } = JSON.parse(localStorage.getItem('profile'));
+    req.headers.Authorization = `Bearer ${token}`;
   }
 
+  // Other interceptor logic (if any)
   return req;
 });
+
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
@@ -25,7 +28,6 @@ export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
 
-console.log(fetchPosts)
 const MyApiComponent = () => {
   const [isConnected, setIsConnected] = useState(false);
 

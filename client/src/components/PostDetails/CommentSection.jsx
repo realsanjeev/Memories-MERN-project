@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 
-
 import { commentPost } from "../../actions/posts";
 import { TextField, Typography, Button } from "@mui/material";
 import { CommentsInnerContainer, CommentsOuterContainer } from "./styles";

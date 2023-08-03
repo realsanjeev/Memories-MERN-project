@@ -7,12 +7,13 @@ import Chip from "@mui/material/Chip";
 import FileBase from "react-file-base64";
 
 import { createPost, updatePost } from "../../actions/posts";
-import { 
+import {
   RootContainer,
-  StyledPaper, 
-  FormContainer, 
-  FileInput, 
-  SubmitButton } from "./styles";
+  StyledPaper,
+  FormContainer,
+  FileInput,
+  SubmitButton,
+} from "./styles";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -22,11 +23,12 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const post = useSelector((state) =>
-    (currentId ? state.posts.posts.find((message) => message._id === currentId) : null
-  ));
+    currentId ? state.posts.posts.find((message) => message._id === currentId) : null
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
+
   const clear = () => {
     setCurrentId(0);
     setPostData({
@@ -64,16 +66,22 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   const handleDeleteChip = (chipToDelete) => {
-    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+    setPostData({
+      ...postData,
+      tags: postData.tags.filter((tag) => tag !== chipToDelete),
+    });
   };
 
-  const chipDisplay = () =>  ( postData?.tags.map((<Chip
-    name="tags"
-    variant="outlined"
-    label={postData.tags}
-    onDelete={(chip) => handleDeleteChip(chip)}
-  />))
-  )
+  const chipDisplay = postData.tags.map((tag) => (
+    <Chip
+      key={tag}
+      name="tags"
+      variant="outlined"
+      label={tag}
+      onDelete={() => handleDeleteChip(tag)}
+    />
+  ));
+
   return (
     <RootContainer>
       <StyledPaper elevation={6}>
@@ -101,24 +109,25 @@ const Form = ({ currentId, setCurrentId }) => {
               setPostData({ ...postData, message: e.target.value })
             }
           />
-          <div style={{ padding: '5px 0', width: '94%' }}>
-            {chipDisplay}
-          </div>
+          <div style={{ padding: "5px 0", width: "94%" }}>{chipDisplay}</div>
           <TextField
             name="tags"
             variant="outlined"
             label="Tags (coma separated)"
             fullWidth
-            value={postData.tags}
+            value={postData.tags.join(", ")} // Join tags to show them as a comma-separated string
             onChange={(e) =>
               setPostData({ ...postData, tags: e.target.value.split(",") })
             }
           />
           <FileInput>
-            <FileBase 
-              type="file" 
-              multiple={false} 
-              onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setPostData({ ...postData, selectedFile: base64 })
+              }
+            />
           </FileInput>
           <SubmitButton
             variant="contained"

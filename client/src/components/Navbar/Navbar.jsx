@@ -32,7 +32,6 @@ export default function Navbar() {
         const token = user?.token;
         if (token) {
           const decodedToken = decode(token);
-          console.log(token)
     
           if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
