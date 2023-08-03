@@ -115,9 +115,11 @@ const Form = ({ currentId, setCurrentId }) => {
             variant="outlined"
             label="Tags (coma separated)"
             fullWidth
-            value={postData.tags.join(", ")} // Join tags to show them as a comma-separated string
+            value={postData.tags.join(",")} // Join tags to show them as a comma-separated string
             onChange={(e) =>
-              setPostData({ ...postData, tags: e.target.value.split(",") })
+              setPostData({ ...postData,
+                tags: e.target.value.split(",").map(tag => tag.trim()) })
+
             }
           />
           <FileInput>

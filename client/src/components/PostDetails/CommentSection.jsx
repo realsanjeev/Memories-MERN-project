@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { TextField, Typography, Button } from "@mui/material";
 
 import { commentPost } from "../../actions/posts";
-import { TextField, Typography, Button } from "@mui/material";
 import { CommentsInnerContainer, CommentsOuterContainer } from "./styles";
 
 const CommentSection = ({ post }) => {
@@ -12,8 +12,9 @@ const CommentSection = ({ post }) => {
     const dispatch = useDispatch();
     const commentsRef = useRef();
 
-    const handleComment = async ( post ) => {
-        const newComments = await dispatch(commentPost(`${user?.result?.name}`, post._id));
+    const handleComment = async () => {
+        const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
+        console.log(post._id)
 
         setComment("");
         setComments(newComments);
@@ -37,14 +38,16 @@ const CommentSection = ({ post }) => {
                     <div ref={commentsRef} />
                 </CommentsInnerContainer>
                 <div style={{ width: '70%' }}>
-                    <Typography gutterBottom variant="h6">Write a comment</Typography>
+                    <Typography gutterBottom variant="h6" color="primary">Write a comment</Typography>
                     <TextField fullWidth 
                     rows={4}
                     variant="outlined"
                     label="Comment"
                     multiline
                     value={comment}
-                    onChange={(e) => setComment(e.target.value)}
+                    onChange={(e) => {
+                        console.log(comment)
+                        return setComment(e.target.value)}}
                     />
                     <br />
                     <Button 
