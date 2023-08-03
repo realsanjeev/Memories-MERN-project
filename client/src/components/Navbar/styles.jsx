@@ -1,8 +1,23 @@
 import { styled } from "@mui/material/styles";
-import { deepPurple, green } from '@mui/material/colors';
+import { createTheme } from "@mui/system";
+import { deepPurple } from '@mui/material/colors';
 import { AppBar, Typography, Avatar, Toolbar, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
+const theme = createTheme({
+  spacing: 4,
+  palette: {
+    primary: deepPurple[500],
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    }
+}});
 const styles = {
   appBar: {
     borderRadius: 15,
@@ -12,39 +27,57 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: theme.palette.primary.main,
     textDecoration: 'none',
+    fontSize: '2em',
+    fontWeight: 300,
   },
   image: {
-    marginLeft: '15px',
+    marginLeft: '10px',
+    marginTop: '5px',
   },
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    maxWidth: "400px",
+    "& > *": {
+      margin: "0 8px",
+    },
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    alignItems: 'center',
+    "& > *": {
+      margin: "0 8px",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      marginTop: 20,
+      justifyContent: 'center',
+    },
+  },
+  logout: {
+    marginLeft: '20px',
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
+    textAlign: 'center',
   },
   brandContainer: {
     display: 'flex',
-    alignItems: 'left',
+    alignItems: 'center',
   },
   purple: {
-    color: "#fff",
+    color: 'white',
     backgroundColor: deepPurple[500],
   },
-  logout: {
-    color: green[700]
-  }
 };
 
 const StyledAppBar = styled(AppBar)(styles.appBar);

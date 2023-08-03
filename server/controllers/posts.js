@@ -10,7 +10,7 @@ export const getPosts = async (req, res) => {
   // console.log("getPosts method: ", page)
 
   try {
-    const LIMIT = 8;
+    const LIMIT = 2;
     const startIndex = (Number(page) - 1) * LIMIT;
 
     const total = await PostMessage.countDocuments({});
@@ -53,11 +53,11 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const post = req.body;
-  console.log("Creating post", post);
   const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
 
   try {
     await newPostMessage.save();
+    console.log("Successfully created post")
 
     res.status(201).json(newPostMessage);
   } catch (error) {

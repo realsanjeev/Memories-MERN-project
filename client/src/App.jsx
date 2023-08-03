@@ -15,10 +15,11 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/post" element={<Home />} />
+          <Route path="/posts" element={<Home />} />
           <Route path="/posts/search" element={<Home />} />
           <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/auth" element={<Auth />}/>
+          <Route path="/auth" element={!user? <Auth />: <Home />}/>
+          <Route path="/*" element={<Home/>} />
         </Routes>
       </Container>
     </BrowserRouter>

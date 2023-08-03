@@ -1,7 +1,8 @@
 import { styled } from "@mui/material/styles";
-import { Card, 
-    CardActions, 
-    CardMedia, 
+import {
+    Card,
+    CardActions,
+    CardMedia,
     Typography,
     ButtonBase
 } from "@mui/material";
@@ -71,11 +72,12 @@ const StyledTitle = styled(Typography)(styles.title);
 const StyledCardActions = styled(CardActions)(styles.cardActions);
 const StyledButtonBase = styled(ButtonBase)(styles.cardAction);
 
-export { StyledCard, 
-    StyledCardMedia, 
-    Overlay, 
-    Overlay2, 
-    Details, 
+export {
+    StyledCard,
+    StyledCardMedia,
+    Overlay,
+    Overlay2,
+    Details,
     StyledTitle,
     StyledCardActions,
     StyledButtonBase

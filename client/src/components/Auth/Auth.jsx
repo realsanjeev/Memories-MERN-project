@@ -6,7 +6,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import jwtDecode from 'jwt-decode';
 
-// import Icon from './icon';
+import Icon from './icon';
 import { signin, signup } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 import { StyledAvatar, StyledForm, StyledPaper, SubmitButton } from './styles';
@@ -100,6 +100,7 @@ const SignUp = () => {
             <GoogleLogin
               onSuccess={googleSuccess}
               onError={googleError}
+              startIcon={<Icon />}
             />
             </GoogleOAuthProvider>
             <Grid container justify="flex-end">

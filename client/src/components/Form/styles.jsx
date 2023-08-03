@@ -30,4 +30,9 @@ const FormContainer = styled('form')(styles.formContainer);
 const FileInput = styled('div')(styles.fileInput);
 const SubmitButton = styled(Button)(styles.submitButton);
 
-export { RootContainer, StyledPaper, FormContainer, FileInput, SubmitButton };
+export { RootContainer,
+  StyledPaper,
+  FormContainer,
+  FileInput,
+  SubmitButton
+};
