@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { BrowserRouter, Route, Routes, redirect } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import PostDetails from "./components/PostDetails/PostDetails";
 import Home from "./components/Home/Home";

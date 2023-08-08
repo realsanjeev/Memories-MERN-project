@@ -7,7 +7,6 @@ import decode from 'jwt-decode';
 
 import {
   StyledAppBar,
-  StyledTypography,
   StyledToolbar,
   StyledImage,
   PurpleAvatar,
@@ -18,7 +17,7 @@ import {
 import * as actionType from '../../constants/actionTypes';
 import memoriesText from '../../images/memoriesText.png';
 import memoriesLogo from '../../images/memoriesLogo.png';
-import MyApiComponent from '../../api';
+// import MyApiComponent from '../../api';
 
 export default function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
