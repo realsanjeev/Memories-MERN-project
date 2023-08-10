@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Chip from "@mui/material/Chip";
@@ -25,6 +25,17 @@ const Home = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
+
+  useEffect(() => {
+    const tags = query.get('tags');
+
+    if (searchQuery && tags) {
+      // Perform the search and update the state accordingly
+      setSearch(searchQuery);
+      setTags(tags.split(',').map(tag => tag.trim()));
+      dispatch(getPostsBySearch({ search: searchQuery, tags }));
+    }
+  }, [query, dispatch]);
 
   const searchPost = () => {
     if (search.trim() || tags) {

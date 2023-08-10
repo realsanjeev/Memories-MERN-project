@@ -24,7 +24,7 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
-  console.log("get posts by search: ", searchQuery)
+  console.log("get posts by search: ", req.query)
   try {
     const title = new RegExp(searchQuery, "i");
 
@@ -33,6 +33,7 @@ export const getPostsBySearch = async (req, res) => {
     res.status(200).json({ data: posts });
 
   } catch (error) {
+    console.error("error in search", error.message)
     res.status(404).json({ message: error.message });
   }
 }

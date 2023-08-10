@@ -13,8 +13,6 @@ import { StyledAvatar, StyledForm, StyledPaper, SubmitButton } from './styles';
 // eslint-disable-next-line
 import Input from './Input';
 
-console.log(clientID)
-
 const initialState = {
   firstName: '',
   lastName: '',
