@@ -1,9 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
 
 import UserModel from "../models/user.js";
 
-const secret = "test";
+dotenv.config()
+const secret = process.env.SECRET;
 
 const signin = async (req, res) => {
     console.log("sigin")

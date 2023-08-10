@@ -7,10 +7,10 @@ const router = express.Router();
 
 export const getPosts = async (req, res) => {
   const { page } = req.query;
-  // console.log("getPosts method: ", page)
+  console.log("getPosts method: ", page)
 
   try {
-    const LIMIT = 2;
+    const LIMIT = 3;
     const startIndex = (Number(page) - 1) * LIMIT;
 
     const total = await PostMessage.countDocuments({});

@@ -13,6 +13,8 @@ import { StyledAvatar, StyledForm, StyledPaper, SubmitButton } from './styles';
 // eslint-disable-next-line
 import Input from './Input';
 
+console.log(clientID)
+
 const initialState = {
   firstName: '',
   lastName: '',
@@ -96,7 +98,7 @@ const SignUp = () => {
             <SubmitButton type="submit" fullWidth variant="contained" color="primary">
               {isSignup ? 'Sign Up' : 'Sign In'}
             </SubmitButton>
-            <GoogleOAuthProvider clientId="520746839658-p0mjpbip89hsubau64jjubfh3nrml53o.apps.googleusercontent.com">
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
             <GoogleLogin
               onSuccess={googleSuccess}
               onError={googleError}

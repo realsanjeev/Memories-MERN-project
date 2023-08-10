@@ -66,3 +66,39 @@ Explanation:
 3. To execute the MapReduce operation, you use the `mapReduce` method on the MongoDB collection. The result will be stored in a new collection named `resultCollection` (you can choose any name for the output collection).
 
 **`<mongodb_query>.explain()`** -> returns the performance of query
+
+##### Install Guideline
+1. Install `mongodB`
+2. Install `mongosh` for command line interface
+#### MongoDB CheatSheet
+
+| Command/Action                           | Description                                                                      |
+|------------------------------------------|----------------------------------------------------------------------------------|
+| `show dbs`                               | Show all databases                                                              |
+| `db`                                     | Show current database                                                           |
+| `use mydb`                               | Switch or create database                                                       |
+| `db.dropDatabase()`                      | Drop a database                                                                 |
+| `cls` or `clear screen`                  | Clear the screen                                                                |
+| `exit()`                                 | Exit the MongoDB shell                                                          |
+| `db.collec.insertOne({})`                | Insert one document into a collection                                          |
+| `db.collec.find()`                       | Find all documents in a collection                                             |
+| `db.collec.insertMany({}, {})`           | Insert multiple documents into a collection                                    |
+| `db.collec.find().limit(2)`              | Limit the document findings to 2                                               |
+| `db.collec.find().sort({name: 1})`       | Sort the documents based on the `name` field in ascending order (1 for ascending, -1 for descending) |
+Sure, here's an updated markup table that includes the additional MongoDB commands:
+
+| `db.collec.find().skip(n)`                   | Skip the first `n` entries                                                                            |
+| `db.collec.find({name: 'mongodb'})`          | Find documents with the given `name` query                                                           |
+| `db.collec.find({name: 'mongodb'}, {name: 1, type: 1, _id: 0})` | Show specific fields in the result                                                                   |
+| `db.collec.find({name: {$ne: 'mongodb'}})`   | Find documents with the name not equal to 'mongodb'                                                 |
+| `db.collec.find({rating: {$lt: 5}})`         | Find documents with `rating` less than 5                                                             |
+| `db.collec.find({$expr: {$gt: ['$field1', '$field2']}})` | Compare fields using an expression                                                       |
+| `db.collec.find({name: { $in: ['mongo', 'mongodb']}})` | Find documents where the name is 'mongo' or 'mongodb'                                   |
+| `db.collec.countDocuments()`                  | Get the total number of documents in the collection                                                |
+| `db.collec.updateOne({$age: 3}, {$set: {age: 21}})` | Update the first document matching the query to set the `age` field to 21                  |
+| `db.collec.updateMany({$age: 3}, {$set: {age: 21}})` | Update all documents matching the query to set the `age` field to 21                       |
+| `db.collec.updateMany({$unset: {owner: ''}})` | Remove the `owner` field from all documents                                                       |
+| `db.collec.updateMany({$push: {owner: 'elon'}})` | Add 'elon' to the `owner` array field of all documents                                       |
+| `db.collec.updateMany({$pop: {owner: 'elon'}})` | Remove the first occurrence of 'elon' from the `owner` array field of all documents           |
+
+Please replace `collec` with your actual collection name in these commands. Keep in mind that MongoDB syntax and behavior may evolve with different versions, so it's always a good idea to consult the official documentation for the most up-to-date information.

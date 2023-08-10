@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 import postRoutes from './routes/posts.js';
 import userRouter from './routes/user.js';
@@ -15,7 +18,7 @@ app.use(cors({ credentials: true, sameSite: "none" }));
 app.use("/posts", postRoutes);
 app.use("/user", userRouter);
 
-const CONNECTION_URL = "mongodb+srv://makerking:makerking@cluster0.xpammz2.mongodb.net/test";
+const CONNECTION_URL = process.env.MONGODB_SERVER;
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, { 
