@@ -35,7 +35,7 @@ const Home = () => {
       setTags(tags.split(',').map(tag => tag.trim()));
       dispatch(getPostsBySearch({ search: searchQuery, tags }));
     }
-  }, [query, dispatch]);
+  }, [setSearch]);
 
   const searchPost = () => {
     if (search.trim() || tags) {
