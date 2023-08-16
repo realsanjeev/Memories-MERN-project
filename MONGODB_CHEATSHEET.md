@@ -33,7 +33,7 @@
 | `db.collec.updateMany({$pop: {owner: 'elon'}})` | Remove the first occurrence of 'elon' from the `owner` array field of all documents |
 | `db.getCollectionNames()`                 | Show all collections in a Database                                                  |
 | `db.collec.find({name: {$regex: '^USS\\sE'}})` | Matching pattern in pearl-style                                             |
-| `db.collec.createIndex({"name": 2})`     | Create single field index [^1]                                                          |
+| `db.collec.createIndex({"name": 2})`     | Create single field index                                                         |
 | `db.collec.createIndex({"name": 2, "date": 2})` | Create compound index                                                        |
 | `db.collec.createIndex({foo: "text", bar: "text"})` | Create text index                                                |
 | `db.collec.createIndex({"$**": "text"})`  | Create wildcard text index                                                          |
@@ -114,7 +114,8 @@ Explanation:
 
 **`<mongodb_query>.explain()`** -> returns the performance of query
 
- [^1]: ### Index
+### Index
+
 
  An index in a database is a data structure that improves the speed of data retrieval operations on a database table or collection. It acts like a reference or a pointer that helps the database system locate the data more efficiently. Without indexes, the database would need to scan the entire collection to find the requested data, which can be very slow and resource-intensive, especially for large datasets.
 
