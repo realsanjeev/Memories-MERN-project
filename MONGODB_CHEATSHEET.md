@@ -163,3 +163,100 @@ Creating an index involves specifying one or more fields on which the index shou
 Creating indexes comes with trade-offs. While they significantly improve query performance, they also introduce overhead during data insertion, updates, and deletion, as the index also needs to be maintained. Careful consideration should be given to the fields you choose to index, based on the types of queries you frequently perform.
 
 Remember that index creation is a one-time operation. After creating an index, it's automatically used by the database system to optimize query performance. However, indexes should also be periodically reviewed and maintained to ensure optimal performance as data evolves over time.
+
+### SOME INFOS
+
+1. **Add Replica Set in MongoDB**
+   - Command: `rs.add("<hostname>")`
+
+2. **Command to Backup Database**
+   - `mongodump`
+
+3. **Flag for Importing JSON Array with MongodbImport**
+   - `--jsonArray`
+
+4. **Resolve Exceeded Memory Limit**
+   - Set `allowDiskUse` to `true`
+
+5. **Setup Kerberos when Starting MongoDB**
+   - `--setParameter authenticationMechanism=GSSAPI`
+   > Kerberos is a computer network authentication protocol that provides a secure way for clients and servers to authenticate each other in a network environment. It was developed by MIT in the 1980s and has become a widely adopted standard for secure authentication in many enterprise environments.
+
+6. **Purpose of Arbiter in Replica Set**
+   - Casts tie-breaking vote in election
+
+7. **Example of Creating Geospatial Index**
+   - `db.collection.createIndex({"location": "2dsphere"})`
+   >"2dsphere" indicates that the index will be used for spherical geometry.
+
+   > A geospatial index is used to optimize queries that involve spatial data, such as finding points within a certain radius or performing other geometric operations. This type of index is particularly useful when working with applications that involve location-based services or mapping.
+
+8. **Ad-hoc Queries vs. Indexed Queries**
+   - Ad-hoc queries run faster than indexed queries
+   
+|                   | Ad-hoc Queries                          | Indexed Queries                        |
+|-------------------|----------------------------------------|---------------------------------------|
+| **Definition**    | Queries executed without prior planning, | Queries executed using predefined      |
+|                   | optimization, or specific structure.    | indexes to retrieve data efficiently.   |
+|                   | They are not optimized for performance.  |                                       |
+| **Speed**         | Generally slower due to full collection  | Faster, as they leverage pre-built      |
+|                   | scans.                                   | indexes to quickly locate data.         |
+| **Efficiency**    | Inefficient for large datasets or        | Efficient for large datasets or         |
+|                   | complex queries.                         | complex queries.                        |
+| **Resource Usage**| Consumes more CPU and memory resources.  | Utilizes less CPU and memory resources  |
+|                   |                                          | as the index narrows down the search.   |
+| **Examples**      | `db.collection.find({field: value})`      | `db.collection.find({field: value})`    |
+|                   | `db.collection.aggregate([...])`          | `db.collection.find({field: value}).     |
+|                   |                                          | sort({field: 1}).limit(10)`             |
+| **When to Use**   | Suitable for ad-hoc, exploratory queries,| Preferred for frequently executed        |
+|                   | or when specific data is not known in    | queries or queries on large datasets.   |
+|                   | advance.                                 |                                       |
+| **Considerations**| May not be suitable for production or     | Essential for production environments,   |
+|                   | performance-critical applications.        | especially with large datasets.         |
+
+
+9. **Replica Sends Heartbeat**
+   - Every 2 seconds
+
+10. **Speed Up Read Access and Slow Write Access**
+    - Preferred format to store geospatial data: GeoJSON
+    > GeoJSON is an open standard format for encoding geospatial data. It allows for the representation of geographic features, such as points, lines, polygons, and collections of these features, along with associated attributes.
+
+11. **Using `mongoimport` to Import CSV in MongoDB**
+
+12. **Get KB Instead of Bytes from `stats` Command**
+    - `db.collection.stats(1024)`
+
+13. **Remove Index from Description**
+    - `db.collection.dropIndex("description_text")`
+
+14. **Create a New Document in Collection**
+    - `db.collection.save({name: "Document"})`
+
+15. **MongoDB Has at Least Three Files**
+    - `data`, `namespace`, `journal`
+
+16. **Delete Single Document from Collection**
+    - Deprecated: `db.collection.remove({_id: 1})`
+    - Use: `db.collection.deleteOne()` or `db.collection.deleteMany()`
+
+17. **Remove Collection**
+    - `db.collection.drop()`
+
+18. **Cleanly Shutdown MongoDB**
+    - `db.shutdownServer()`
+
+19. **Default `explain()` Mode**
+    - Query Planner Mode
+
+20. **File that Holds MongoDB Daemon**
+    - `mongod`
+
+21. **Option that can be Passed Without Connecting Database**
+    - `-nodb`
+
+22. **Execute JavaScript**
+    - `load('list.js')`
+
+23. **Create a New MongoDB User**
+    - `db.createUser({})`
