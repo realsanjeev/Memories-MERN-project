@@ -2,6 +2,7 @@
 
 This is a MERN (MongoDB, Express, React, Node.js) project called "Memories." It is a web application that allows users to create and store their memories. The project is divided into front-end and back-end components, and it leverages React for the user interface, Express for the server-side, MongoDB for the database, and Node.js for the runtime environment.
 
+To work with same project using python as backend checkout [Memories in flask](https://github.com/realsanjeev/Memories-flask-api-project).
 ## Getting Started
 
 To set up the project, follow these steps:
