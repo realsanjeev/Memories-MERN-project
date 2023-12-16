@@ -42,7 +42,7 @@ const Form = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (!post?.title) clear();
     if (post) setPostData(post);
-  }, [post, clear]);
+  }, [post]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

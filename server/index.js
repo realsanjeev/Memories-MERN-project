@@ -4,11 +4,10 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-dotenv.config()
-
 import postRoutes from './routes/posts.js';
 import userRouter from './routes/user.js';
 
+dotenv.config()
 const app = express();
 
 app.use(bodyParser.json({ limit: '30mb', extended: true}));
