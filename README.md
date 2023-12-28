@@ -10,7 +10,7 @@ To set up the project, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/realsanjeev/Memories-MERN-project.git
 cd memories-project
 ```
 
