@@ -3,46 +3,46 @@
 This is a MERN (MongoDB, Express, React, Node.js) project called "Memories." It is a web application that allows users to create and store their memories. The project is divided into front-end and back-end components, and it leverages React for the user interface, Express for the server-side, MongoDB for the database, and Node.js for the runtime environment.
 
 To work with same project using python as backend checkout [Memories in flask](https://github.com/realsanjeev/Memories-flask-api-project).
+
 ## Getting Started
 
 To set up the project, follow these steps:
 
-1. Clone the repository to your local machine:
+1. **Clone the Repository to Your Local Machine:**
+    ```bash
+    git clone https://github.com/realsanjeev/Memories-MERN-project.git memories-project
+    cd memories-project
+    ```
 
-```bash
-git clone https://github.com/realsanjeev/Memories-MERN-project.git
-cd memories-project
-```
+2. **Install Front-End Dependencies:**
+    - Navigate to the client directory:
+    ```bash
+    cd client
+    npm install
+    ```
+    - Update the `.env` file with your `GOOGLE_CLIENT_ID` under the `REACT_APP_CLIENT_ID` key to enable Google Sign-In.
 
-2. Install the required dependencies for the front-end:
+3. **Retrieve Your Server's IP Address:**
+    ```bash
+    curl icanhazip.com
+    ```
+    - Use this IP address for connecting to MongoDB Atlas(for allowing only that IP access to cluster).
 
-```bash
-cd client
-npm install
-```
+4. **Set Up the Back-End:**
+    - Navigate to the server directory and install dependencies:
+    ```bash
+    cd ../server/
+    npm install
+    ```
+    - Configure the `.env` file to connect the MongoDB database to the server.
 
+5. **Start the Development Servers:**
+    ```bash
+    npm start
+    ```
 
-3. Retrieve the IP address of your Codespace or server for connecting to mongodb atlas:
+Now, the application should be running on your local machine, with the front-end accessible at `http://localhost:3000` and the back-end at `http://localhost:5000`.
 
-```bash
-curl icanhazip.com
-```
-
-
-4. Set up the back-end by installing the required dependencies:
-
-```bash
-cd ..
-npm install
-```
-
-5. Start the development server for both front-end and back-end:
-
-```bash
-npm start
-```
-
-Now, the application should be running on your local machine, with the front-end accessible on `http://localhost:3000` and the back-end running on `http://localhost:5000`.
 
 ## Features
 

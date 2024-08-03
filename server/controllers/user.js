@@ -33,7 +33,7 @@ const signin = async (req, res) => {
 const signup = async (req, res) => { 
     const { email, password, firstName, lastName } = req.body;
     console.log("signup: ")
-    console.log(req.body)
+    // console.log(req.body)
     try {
         const oldUser = await UserModel.findOne({ email });
         if (oldUser) return res.status(400).json({ message: "User already exists" });

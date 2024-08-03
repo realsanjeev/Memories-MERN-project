@@ -145,7 +145,7 @@ export const likePost = async (req, res) => {
 
     // Save the updated post with the new likes array
     const updatedPost = await post.save();
-    console.log(updatedPost);
+    // console.log(updatedPost);
 
     res.status(200).json(updatedPost);
   } catch (error) {
