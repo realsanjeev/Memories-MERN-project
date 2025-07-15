@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -23,35 +23,27 @@ import {
 
 const Post = ({ post, setCurrentId }) => {
     const user = JSON.parse(localStorage.getItem("profile"));
-    const [likes, setLikes] = useState(post?.likes);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userId = user?.result?.sub || user?.result?._id;
-    const hasLikedPost = post.likes?.find((like) => like === userId);
 
     const handleLike = async () => {
         dispatch(likePost(post._id));
-
-        if (hasLikedPost) {
-            setLikes(post.likes.filter((id) => id !== userId));
-        } else {
-            setLikes([...post.likes, userId]);
-        }
     };
 
     const Likes = () => {
-        if (likes.length > 0) {
-            return likes.find((like) => like === userId)
+        if (post.likes.length > 0) {
+            return post.likes.find((like) => like === userId)
                 ? (
                     <>
                         <ThumbUpIcon fontSize="small" />
-                        &nbsp;{likes?.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}
+                        &nbsp;{post.likes?.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
                     </>
                 ) : (
                     <>
                         <ThumbUpOffAltIcon fontSize="small" />
-                        &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
+                        &nbsp;{post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
                     </>
                 )
         }
@@ -99,9 +91,9 @@ const Post = ({ post, setCurrentId }) => {
                 <StyledTitle gutterBottom variant="h5" component="h2">
                     {post.title}
                 </StyledTitle>
-                <CardContent>
+                <CardContent sx={{ paddingTop: 0 }}>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {post.message.split(' ').splice(0, 20).join(' ')}...
+                        {post.message.length > 100 ? `${post.message.substring(0, 100)}...` : post.message}
                     </Typography>
                 </CardContent>
             </StyledButtonBase>

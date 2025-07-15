@@ -21,7 +21,8 @@ const theme = createTheme({
 
 const styles = {
   container: {
-    width: "fit-content"
+    width: "100%",
+    display: "flex",
   },
   mainContainer: {
     borderRadius: 15,

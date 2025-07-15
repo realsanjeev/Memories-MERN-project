@@ -1,41 +1,43 @@
-import React, {useEffect} from "react";
-import {useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { Paper, Typography, Divider, CircularProgress } from "@mui/material";
 
-import {getPost, getPostsBySearch } from "../../actions/posts";
+import { getPost, getPostsBySearch } from "../../actions/posts";
 import CommentSection from "./CommentSection";
-import { LoadingPaper, 
-  StyledImg, 
-  Card, 
-  Section, 
+import {
+  LoadingPaper,
+  StyledImg,
+  Card,
+  Section,
   ImageSection,
-  RecommendedPosts } from "./styles";
+  RecommendedPosts
+} from "./styles";
 
 const Post = () => {
-    const { post, posts, isLoading } = useSelector((state) => state.posts);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { id } = useParams();
+  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-    useEffect(() => {
-        dispatch(getPost(id));
-    }, [id]);
+  useEffect(() => {
+    dispatch(getPost(id));
+  }, [id, dispatch]);
 
-    useEffect(() => {
-        if (post) {
-            dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
-        }
-    }, [post]);
+  useEffect(() => {
+    if (post) {
+      dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
+    }
+  }, [post, dispatch]);
 
-    if (!post) return null;
+  if (!post) return null;
 
-    const  openPost = (_id) => navigate(`/posts/${_id}`);
+  const openPost = (_id) => navigate(`/posts/${_id}`);
 
-    if (isLoading) {
-        return (
-            <LoadingPaper elevation={6}>
+  if (isLoading) {
+    return (
+      <LoadingPaper elevation={6}>
         <CircularProgress size="7em" />
       </LoadingPaper >
     );
@@ -48,10 +50,10 @@ const Post = () => {
         <Section>
           <Typography variant="h3" component="h2">
             {post.title}
-            </Typography>
+          </Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">
             {post.tags.map((tag) => `#${tag} `)}
-            </Typography>
+          </Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
           <Typography variant="h6">Created by: {post.name}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
@@ -76,7 +78,7 @@ const Post = () => {
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes?.length}</Typography>
-                <img src={selectedFile} width="200px" alt="selected file"/>
+                <img src={selectedFile} width="200px" alt="selected file" />
               </div>
             ))}
           </RecommendedPosts>

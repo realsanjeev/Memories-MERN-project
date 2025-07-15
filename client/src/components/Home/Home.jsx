@@ -35,7 +35,7 @@ const Home = () => {
       setTags(tags.split(',').map(tag => tag.trim()));
       dispatch(getPostsBySearch({ search: searchQuery, tags }));
     }
-  }, [setSearch]);
+  }, [searchQuery, query, dispatch]);
 
   const searchPost = () => {
     if (search.trim() || tags) {
@@ -102,8 +102,8 @@ const Home = () => {
                 }
               />
               <SearchButton onClick={searchPost} variant="contained" color="primary" fullWidth>
-              Search
-            </SearchButton>
+                Search
+              </SearchButton>
             </PaperSearchBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
 

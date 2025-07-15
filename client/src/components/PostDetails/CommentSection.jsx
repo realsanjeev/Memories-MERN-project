@@ -14,7 +14,6 @@ const CommentSection = ({ post }) => {
 
     const handleComment = async () => {
         const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
-        console.log(post._id)
 
         setComment("");
         setComments(newComments);
@@ -39,24 +38,22 @@ const CommentSection = ({ post }) => {
                 </CommentsInnerContainer>
                 <div style={{ width: '70%' }}>
                     <Typography gutterBottom variant="h6" color="primary">Write a comment</Typography>
-                    <TextField fullWidth 
-                    rows={4}
-                    variant="outlined"
-                    label="Comment"
-                    multiline
-                    value={comment}
-                    onChange={(e) => {
-                        console.log(comment)
-                        return setComment(e.target.value)}}
+                    <TextField fullWidth
+                        rows={4}
+                        variant="outlined"
+                        label="Comment"
+                        multiline
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
                     />
                     <br />
-                    <Button 
-                    style={{ marginTop: '10px' }} 
-                    fullWidth 
-                    disabled={!comment.length}
-                    color='primary'
-                    variant="contained"
-                    onClick={handleComment}>
+                    <Button
+                        style={{ marginTop: '10px' }}
+                        fullWidth
+                        disabled={!comment.length}
+                        color='primary'
+                        variant="contained"
+                        onClick={handleComment}>
                         Comment
                     </Button>
                 </div>

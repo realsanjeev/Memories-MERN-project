@@ -9,10 +9,12 @@ import {
 
 const styles = {
     media: {
-        height: 10,
-        paddingTop: "56.25%",
+        height: 0,
+        paddingTop: "56.25%", // 16:9 aspect ratio
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         backgroundBlendMode: "darken",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
     border: {
         border: "solid",
@@ -27,15 +29,24 @@ const styles = {
         borderRadius: "15px",
         height: "100%",
         position: "relative",
-        width: "auto",
+        width: "100%",
+        minWidth: "280px",
+        maxWidth: "100%",
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        "&:hover": {
+            transform: "translateY(-8px)",
+            boxShadow: "0 12px 24px rgba(0,0,0,0.15)",
+        },
     },
     overlay: {
         position: "absolute",
         top: "20px",
         left: "20px",
         color: "white",
+        textShadow: "0 2px 4px rgba(0,0,0,0.6)",
     },
-    ovelay2: {
+    overlay2: {
         position: "absolute",
         top: "20px",
         right: "20px",
@@ -51,15 +62,19 @@ const styles = {
     },
     title: {
         padding: "0 16px",
+        marginTop: "8px",
+        fontWeight: 600,
     },
     cardActions: {
-        padding: "0 16px 8px 16px",
+        padding: "8px 16px 12px 16px",
         display: "flex",
-        justifyContent: "spacce-between",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     cardAction: {
         display: "block",
         textAlign: "initial",
+        width: "100%",
     },
 }
 
