@@ -1,65 +1,216 @@
-## Create React App
-```
-npx create-rect-app <project_name>
-cd <project_name>
+# Memories - Client (Frontend)
+
+React-based frontend for the Memories application, featuring a modern UI with Material-UI components, Redux state management, and Google OAuth authentication.
+
+## 🎨 Recent UI/UX Improvements
+
+- ✨ **Enhanced Post Cards**: Smooth hover effects with elevation changes
+- 📱 **Responsive Grid**: Optimized breakpoints for all screen sizes
+- 🎯 **Better Aspect Ratios**: Cards maintain proper proportions (min-width: 280px)
+- 🐛 **Bug Fixes**: Fixed action types, loading states, and removed unused code
+- 🧹 **Code Quality**: Removed ESLint warnings and improved component structure
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+# or
+bun install
+
+# Set up environment variables
+cp .env.example .env
+# Add your REACT_APP_CLIENT_ID
+
+# Start development server
 npm start
+# or
+bun run start
 ```
 
-## Solving problem of redux-thunk 
-npm install --save redux-thunk
+The app will run on [http://localhost:3000](http://localhost:3000)
 
-## React Redux
-![Redux-Architecture](https://static.javatpoint.com/tutorial/reactjs/images/react-redux-architecture.png)
+## 📁 Project Structure
 
-Redux is a predictable state container for JavaScript applications, commonly used with React. It follows a unidirectional data flow pattern and helps manage the application state in a centralized manner. The architecture diagram demonstrates the flow of data and actions within a Redux-powered React application.
+```
+client/
+├── public/              # Static files
+├── src/
+│   ├── actions/        # Redux action creators
+│   │   ├── auth.jsx    # Authentication actions
+│   │   └── posts.jsx   # Post CRUD actions
+│   ├── api/            # API client configuration
+│   │   └── index.jsx   # Axios instance & API calls
+│   ├── components/     # React components
+│   │   ├── Auth/       # Login/Signup components
+│   │   ├── Form/       # Post creation/edit form
+│   │   ├── Home/       # Home page layout
+│   │   ├── Navbar/     # Navigation bar
+│   │   ├── Pagination/ # Pagination component
+│   │   ├── Posts/      # Post list & card components
+│   │   └── PostDetails/# Post detail view
+│   ├── constants/      # Action type constants
+│   │   └── actionTypes.jsx
+│   ├── reducers/       # Redux reducers
+│   │   ├── auth.jsx    # Auth state reducer
+│   │   ├── posts.jsx   # Posts state reducer
+│   │   └── index.jsx   # Root reducer
+│   ├── App.jsx         # Main app component
+│   └── index.js        # App entry point
+└── package.json
+```
 
-Here are the key components and their interactions shown in the diagram:
+## 🏗️ Architecture
 
-React Components: These are the UI components of your application, responsible for rendering the views and handling user interactions.
+### Redux State Management
 
-Actions: Actions represent events or user interactions that trigger a change in the application state. They are plain JavaScript objects with a type property indicating the type of action and additional data as needed.
+The application uses Redux for centralized state management with the following flow:
 
-Action Creators: Action creators are functions that create and return action objects. They encapsulate the logic of creating actions with the required data.
+```
+┌─────────────┐      ┌─────────┐      ┌──────────┐      ┌───────┐
+│ Components  │─────▶│ Actions │─────▶│ Reducers │─────▶│ Store │
+└─────────────┘      └─────────┘      └──────────┘      └───────┘
+       ▲                                                      │
+       └──────────────────────────────────────────────────────┘
+                    (Subscribe to changes)
+```
 
-Reducers: Reducers are pure functions responsible for handling the state changes based on the dispatched actions. They take the current state and an action as input and return a new state object. Reducers should not modify the existing state; instead, they create a new state object.
+**Key Concepts:**
+- **Actions**: Plain objects describing what happened
+- **Action Creators**: Functions that create and dispatch actions
+- **Reducers**: Pure functions that update state based on actions
+- **Store**: Single source of truth for application state
 
-Store: The store is the central place that holds the application state. It is created using the createStore function provided by Redux. The store provides methods to dispatch actions, access the current state, and subscribe to state changes.
+### API Layer
 
-Middleware: Middleware sits between the dispatching of an action and the moment it reaches the reducer. It can intercept actions, modify them, or execute additional logic. Popular middleware examples include redux-thunk for handling asynchronous actions and redux-logger for logging actions and state changes.
-
-Store Subscription: Components can subscribe to the store to receive updates whenever the state changes. This enables components to react to state changes and update their UI accordingly.
-
-## Axios
-Breakdown of code in api/index.jsx
-
-1. `fetchPosts`: Sends a GET request to the specified `url` to fetch all posts.
+All API calls are centralized in `src/api/index.jsx` using Axios:
 
 ```javascript
-export const fetchPosts = () => axios.get(url);
+// Example API calls
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
+export const createPost = (newPost) => API.post('/posts', newPost);
+export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
+export const deletePost = (id) => API.delete(`/posts/${id}`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 ```
 
-2. `createPost`: Sends a POST request to the `url` with the `newPost` object as the request payload to create a new post.
+**Features:**
+- Axios interceptor for automatic JWT token attachment
+- Centralized error handling
+- Clean separation of concerns
+
+## 🎨 Responsive Design
+
+### Breakpoints
+
+| Screen Size | Breakpoint | Grid Columns | Cards Per Row |
+|-------------|------------|--------------|---------------|
+| Mobile | < 600px | xs={12} | 1 |
+| Tablet | 600-960px | sm={6} | 2 |
+| Desktop | 960-1280px | md={6} | 2 |
+| Large | > 1280px | lg={4} | 3 |
+
+### Card Styling
+
+Post cards feature:
+- **Minimum width**: 280px (prevents awkward narrowing)
+- **Hover effect**: 8px lift with enhanced shadow
+- **Smooth transitions**: Cubic-bezier animation curve
+- **Proper aspect ratio**: 16:9 for images
+
+## 🔐 Authentication
+
+Google OAuth integration using `@react-oauth/google`:
 
 ```javascript
-export const createPost = (newPost) => axios.post(url, newPost);
+// GoogleLogin component
+<GoogleLogin
+  onSuccess={googleSuccess}
+  onError={googleError}
+/>
 ```
 
-3. `likePost`: Sends a PATCH request to the `url` with the post `id` appended to `/likePost` to like a specific post.
+**Flow:**
+1. User clicks "Sign in with Google"
+2. Google OAuth popup appears
+3. On success, JWT token is decoded
+4. User data stored in Redux & localStorage
+5. Token attached to all API requests via interceptor
 
-```javascript
-export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+## 🛠️ Technologies
+
+- **React** (v18) - UI library
+- **Redux** - State management
+- **React Router** (v6) - Client-side routing
+- **Material-UI** (v5) - Component library
+- **Axios** - HTTP client
+- **Moment.js** - Date formatting
+- **@react-oauth/google** - Google authentication
+- **jwt-decode** - JWT token decoding
+
+## 📝 Key Components
+
+### Posts Component
+Displays grid of post cards with loading states and empty states.
+
+### Post Component
+Individual post card with:
+- Image with 16:9 aspect ratio
+- Title, message preview, and tags
+- Like button with count
+- Edit/Delete buttons (for post creator)
+- Hover effects
+
+### Form Component
+Create/Edit post form with:
+- Title and message inputs
+- Tag management with chips
+- Image upload (base64)
+- Validation
+
+### PostDetails Component
+Full post view with:
+- Complete post information
+- Comment section
+- Recommended posts
+
+## 🔧 Environment Variables
+
+Create a `.env` file in the client directory:
+
+```env
+REACT_APP_CLIENT_ID=your_google_oauth_client_id_here
 ```
 
-4. `updatePost`: Sends a PATCH request to the `url` with the post `id` appended to update a specific post with the `updatedPost` object as the request payload.
+**Getting Google OAuth Client ID:**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable Google+ API
+4. Create OAuth 2.0 credentials
+5. Add authorized origins: `http://localhost:3000`
 
-```javascript
-export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
+## 🐛 Common Issues
+
+### Port 3000 Already in Use
+```bash
+npx kill-port 3000
 ```
 
-5. `deletePost`: Sends a DELETE request to the `url` with the post `id` appended to delete a specific post.
+### Google OAuth Not Working
+- Verify `REACT_APP_CLIENT_ID` is set correctly
+- Check authorized origins in Google Cloud Console
+- Ensure you're using `http://localhost:3000` (not `127.0.0.1`)
 
-```javascript
-export const deletePost = (id) => axios.delete(`${url}/${id}`);
-```
+### Redux DevTools Not Working
+Install [Redux DevTools Extension](https://github.com/reduxjs/redux-devtools) for Chrome/Firefox
 
-These functions make use of the Axios library to handle HTTP requests and interact with the server endpoints for fetching, creating, updating, and deleting posts.
+## 📚 Learn More
+
+- [React Documentation](https://react.dev/)
+- [Redux Documentation](https://redux.js.org/)
+- [Material-UI Documentation](https://mui.com/)
+- [React Router Documentation](https://reactrouter.com/)
+
+---
+
+**Note**: This frontend is designed to work with the Memories backend server running on `http://localhost:5000`
