@@ -68,15 +68,25 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  // console.log("Updating post", id)
   const { title, message, creator, selectedFile, tags } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
 
-  const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+    const result = await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
-  res.json(updatedPost);
+    if (!result) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
+
+    res.json(result);
+  } catch (error) {
+    console.error("Error updating post:", error.message);
+    res.status(500).json({ message: "Failed to update post", error: error.message });
+  }
 }
 
 export const deletePost = async (req, res) => {
@@ -156,18 +166,33 @@ export const likePost = async (req, res) => {
 
 export const commentPost = async (req, res) => {
   const { id } = req.params;
-  console.log("Comment Post initiated", req.body, req.params)
+  console.log("Comment Post initiated", req.body, req.params);
+
   try {
     const { value } = req.body;
 
+    if (!value || value.trim() === '') {
+      return res.status(400).json({ message: "Comment cannot be empty" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
+
     const post = await PostMessage.findById(id);
+
+    if (!post) {
+      return res.status(404).send(`No post with id: ${id}`);
+    }
+
+    // Fix race condition: use save() instead of findByIdAndUpdate
     post.comments.push(value);
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+    const updatedPost = await post.save();
+
     res.status(200).json(updatedPost);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: "Something went wrong." });
+    console.error("Error adding comment:", error.message);
+    res.status(500).json({ message: "Failed to add comment", error: error.message });
   }
-
 };
 export default router;

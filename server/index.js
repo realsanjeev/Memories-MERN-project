@@ -10,9 +10,16 @@ import userRouter from './routes/user.js';
 dotenv.config()
 const app = express();
 
-app.use(bodyParser.json({ limit: '30mb', extended: true}));
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
-app.use(cors({ credentials: true, sameSite: "none" }));
+
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CLIENT_URL || '*', // Set CLIENT_URL in .env for production
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 app.use("/posts", postRoutes);
 app.use("/user", userRouter);
@@ -20,12 +27,12 @@ app.use("/user", userRouter);
 const CONNECTION_URL = process.env.MONGODB_SERVER;
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(CONNECTION_URL, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
-    })
-    .then(() => app.listen(PORT, () => {console.log(`Server is Running in Port ${PORT}`)}))
-    .catch((error) => console.log(error.message));
+mongoose.connect(CONNECTION_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => app.listen(PORT, () => { console.log(`Server is Running in Port ${PORT}`) }))
+  .catch((error) => console.log(error.message));
 
 // Access the default connection object
 const db = mongoose.connection;
