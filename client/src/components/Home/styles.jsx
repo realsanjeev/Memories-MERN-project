@@ -5,11 +5,11 @@ import { Grid, Paper, Button } from "@mui/material";
 
 const theme = createTheme({
     breakpoints: {
-      values: {
-        'sm': 600,
-      },
+        values: {
+            'sm': 600,
+        },
     },
-  });
+});
 
 const styles = {
     appBarSearch: {
@@ -27,7 +27,7 @@ const styles = {
         marginTop: '4px',
     },
     gridContainer: {
-        [[theme.breakpoints.down('sm')]]: {
+        [theme.breakpoints.down('sm')]: {
             flexDirection: 'column-reverse',
         },
     }

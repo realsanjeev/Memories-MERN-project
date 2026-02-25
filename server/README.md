@@ -13,6 +13,7 @@ bun install
 # Set up environment variables
 cp .env.example .env
 # Configure your MongoDB connection
+docker compose up -d
 
 # Start development server
 npm start
