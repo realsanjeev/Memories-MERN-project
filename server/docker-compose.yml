@@ -1,8 +1,8 @@
 services:
   mongodb:
-    image: mongo:6.0
+    image: mongo:8.0
     container_name: mongodb
-    restart: always
+    restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: myuser
       MONGO_INITDB_ROOT_PASSWORD: myuser
@@ -10,6 +10,17 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mongo_network
 
 volumes:
   mongo_data:
+
+networks:
+  mongo_network:
+    driver: bridge

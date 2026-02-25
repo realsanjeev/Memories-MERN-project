@@ -22,6 +22,8 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: [],
     selectedFile: "",
   });
+  const [tagInput, setTagInput] = useState(""); // ✅ separate state for raw tag input
+
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((message) => message._id === currentId) : null
   );
@@ -31,28 +33,26 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({
-      title: "",
-      message: "",
-      tags: [],
-      selectedFile: "",
-    });
+    setPostData({ title: "", message: "", tags: [], selectedFile: "" });
+    setTagInput(""); // ✅ also clear the tag input
   };
 
   useEffect(() => {
     if (!post?.title) clear();
-    if (post) setPostData(post);
-  }, [post]);
+    if (post) {
+      setPostData(post);
+      setTagInput(post.tags?.join(", ") || ""); // ✅ sync tag input when editing
+    }
+  }, [post]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentId === 0) {
+    if (!currentId) {
       dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
-      clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
-      clear();
     }
+    clear();
   };
 
   if (!user?.result?.name) {
@@ -66,21 +66,19 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   const handleDeleteChip = (chipToDelete) => {
-    setPostData({
-      ...postData,
-      tags: postData.tags.filter((tag) => tag !== chipToDelete),
-    });
+    const updatedTags = postData.tags.filter((tag) => tag !== chipToDelete);
+    setPostData({ ...postData, tags: updatedTags });
+    setTagInput(updatedTags.join(", ")); // ✅ keep input in sync
   };
 
-  const chipDisplay = postData.tags.map((tag) => (
-    <Chip
-      key={tag}
-      name="tags"
-      variant="outlined"
-      label={tag}
-      onDelete={() => handleDeleteChip(tag)}
-    />
-  ));
+  const handleTagChange = (e) => {
+    const value = e.target.value;
+    setTagInput(value); // ✅ update raw input freely while typing
+    setPostData({
+      ...postData,
+      tags: value.split(",").map((tag) => tag.trim()).filter(Boolean), // ✅ filter out empty strings
+    });
+  };
 
   return (
     <RootContainer>
@@ -105,30 +103,31 @@ const Form = ({ currentId, setCurrentId }) => {
             multiline
             rows={4}
             value={postData.message}
-            onChange={(e) =>
-              setPostData({ ...postData, message: e.target.value })
-            }
+            onChange={(e) => setPostData({ ...postData, message: e.target.value })}
           />
-          <div style={{ padding: "5px 0", width: "94%" }}>{chipDisplay}</div>
+          <div style={{ padding: "5px 0", width: "94%", display: "flex", flexWrap: "wrap", gap: "4px" }}>
+            {postData.tags.map((tag) => (
+              <Chip
+                key={tag}
+                variant="outlined"
+                label={tag}
+                onDelete={() => handleDeleteChip(tag)}
+              />
+            ))}
+          </div>
           <TextField
             name="tags"
             variant="outlined"
-            label="Tags (coma separated)"
+            label="Tags (comma separated)"  // ✅ fixed typo: "coma" → "comma"
             fullWidth
-            value={postData.tags.join(",")} // Join tags to show them as a comma-separated string
-            onChange={(e) =>
-              setPostData({ ...postData,
-                tags: e.target.value.split(",").map(tag => tag.trim()) })
-
-            }
+            value={tagInput}               // ✅ use dedicated tagInput state
+            onChange={handleTagChange}
           />
           <FileInput>
             <FileBase
               type="file"
               multiple={false}
-              onDone={({ base64 }) =>
-                setPostData({ ...postData, selectedFile: base64 })
-              }
+              onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
             />
           </FileInput>
           <SubmitButton
