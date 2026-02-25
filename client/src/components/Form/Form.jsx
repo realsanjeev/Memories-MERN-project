@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { TextField, Button, Typography } from "@mui/material";
 import Chip from "@mui/material/Chip";
-import FileBase from "react-file-base64";
+// import FileBase from "react-file-base64"; // Removed due to version conflict
 
 import { createPost, updatePost } from "../../actions/posts";
 import {
@@ -124,10 +124,19 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={handleTagChange}
           />
           <FileInput>
-            <FileBase
+            <input
               type="file"
               multiple={false}
-              onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = () => {
+                    setPostData({ ...postData, selectedFile: reader.result });
+                  };
+                }
+              }}
             />
           </FileInput>
           <SubmitButton
