@@ -1,12 +1,12 @@
 import { styled } from "@mui/material/styles";
-import { createTheme } from "@mui/system";
+import { createTheme } from "@mui/material/styles";
 import { Grid } from "@mui/material";
 import { deepPurple } from '@mui/material/colors';
 
 const theme = createTheme({
   spacing: 4,
   palette: {
-    primary: deepPurple[500],
+    primary: { main: deepPurple[500] },
   },
   breakpoints: {
     values: {
@@ -65,7 +65,7 @@ const styles = {
     color: theme.palette.primary,
     backgroundColor: deepPurple[500],
   },
-  [[theme.breakpoints.down('sm')]]: {
+  [theme.breakpoints.down('sm')]: {
     appBar: {
       padding: '10px 20px',
     },

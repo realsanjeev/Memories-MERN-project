@@ -27,7 +27,7 @@ const styles = {
         marginTop: '4px',
     },
     gridContainer: {
-        [[theme.breakpoints.down('sm')]]: {
+        [theme.breakpoints.down('sm')]: {
             flexDirection: 'column-reverse',
         },
     }

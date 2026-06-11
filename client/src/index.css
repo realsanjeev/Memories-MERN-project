@@ -1,3 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #f7f8fc;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
 }

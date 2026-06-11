@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Chip from "@mui/material/Chip";
 import { Container, Grow, Grid, TextField } from '@mui/material';
+import Chip from '@mui/material/Chip';
 
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Paginate from '../Pagination/Pagination';
 
-import { getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../store/slices/postsSlice';
 import { StyledGrid, StyledPaper, PaperSearchBar, SearchButton } from './styles';
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -27,18 +25,17 @@ const Home = () => {
   const searchQuery = query.get('searchQuery');
 
   useEffect(() => {
-    const tags = query.get('tags');
+    const tagsParam = query.get('tags');
 
-    if (searchQuery && tags) {
-      // Perform the search and update the state accordingly
+    if (searchQuery && tagsParam) {
       setSearch(searchQuery);
-      setTags(tags.split(',').map(tag => tag.trim()));
-      dispatch(getPostsBySearch({ search: searchQuery, tags }));
+      setTags(tagsParam.split(',').map((tag) => tag.trim()));
+      dispatch(getPostsBySearch({ search: searchQuery, tags: tagsParam }));
     }
   }, [searchQuery, query, dispatch]);
 
   const searchPost = () => {
-    if (search.trim() || tags) {
+    if (search.trim() || tags.length) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
       navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
@@ -47,7 +44,7 @@ const Home = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       searchPost();
     }
   };
@@ -56,29 +53,18 @@ const Home = () => {
     setTags(tags.filter((tag) => tag !== chipToDelete));
   };
 
-  const chipDisplay = tags.map((tag) => (
-    <Chip
-      key={tag}
-      name="tags"
-      variant="outlined"
-      label={tag}
-      onDelete={() => handleDeleteChip(tag)}
-    />
-  ));
-
-
   return (
     <Grow in>
       <Container maxWidth="xl">
         <StyledGrid
           container
-          justify="space-between"
-          alignItems="stretch"
-          spacing={3}>
-          <Grid item xs={12} sm={6} md={9}>
+          sx={{ justifyContent: 'space-between', alignItems: 'stretch', width: '100%' }}
+          spacing={3}
+        >
+          <Grid size={{ xs: 12, sm: 6, md: 9 }}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <PaperSearchBar elevation={6}>
               <TextField
                 onKeyDown={handleKeyPress}
@@ -86,19 +72,29 @@ const Home = () => {
                 variant="outlined"
                 label="Search Memories"
                 fullWidth
+                autoComplete="off"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <div style={{ padding: "5px 2px", width: "94%" }}>{chipDisplay}</div>
+              <div style={{ padding: '5px 2px', width: '94%' }}>
+                {tags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    variant="outlined"
+                    label={tag}
+                    onDelete={() => handleDeleteChip(tag)}
+                  />
+                ))}
+              </div>
               <TextField
                 name="tags"
                 variant="outlined"
-                label="Search Tags (coma separated)"
+                label="Search Tags (comma separated)"
                 fullWidth
-                value={tags.join(",")} // Join tags to show them as a comma-separated string
+                autoComplete="off"
+                value={tags.join(',')}
                 onChange={(e) =>
-                  setTags(e.target.value.split(",").map(tag => tag.trim()))
-
+                  setTags(e.target.value.split(',').map((tag) => tag.trim()))
                 }
               />
               <SearchButton onClick={searchPost} variant="contained" color="primary" fullWidth>
@@ -106,9 +102,7 @@ const Home = () => {
               </SearchButton>
             </PaperSearchBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-
-
-            {(!searchQuery && !tags.length) && (
+            {!searchQuery && !tags.length && (
               <StyledPaper elevation={6}>
                 <Paginate page={page} />
               </StyledPaper>

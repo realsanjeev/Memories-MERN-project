@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { createTheme } from "@mui/system";
+import { createTheme } from "@mui/material/styles";
 import { Avatar, Button, Paper } from '@mui/material';
 import { red } from "@mui/material/colors";
 

@@ -1,6 +1,5 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -10,8 +9,8 @@ import userRouter from './routes/user.js';
 dotenv.config()
 const app = express();
 
-app.use(bodyParser.json({ limit: '30mb', extended: true }));
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
+app.use(express.json({ limit: '30mb' }));
+app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 // CORS configuration
 const corsOptions = {
@@ -27,10 +26,7 @@ app.use("/user", userRouter);
 const CONNECTION_URL = process.env.MONGODB_SERVER;
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(CONNECTION_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(CONNECTION_URL)
   .then(() => app.listen(PORT, () => { console.log(`Server is Running in Port ${PORT}`) }))
   .catch((error) => console.log(error.message));
 

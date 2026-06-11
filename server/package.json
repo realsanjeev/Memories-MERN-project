@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "``` npm nit -y ``` ```  npm install nodemon body-parser cors express mongoose  ```",
+  "description": "``` npm nit -y ``` ```  npm install nodemon cors express mongoose  ```",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,17 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.4",
-    "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.22.1",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^7.8.8",
-    "nodemon": "^3.1.11",
-    "npm": "^11.11.1"
+    "mongoose": "^9.7.0",
+    "nodemon": "^3.1.14",
+    "npm": "^11.16.0"
   },
   "devDependencies": {
-    "ngrok": "^4.3.3"
+    "ngrok": "^5.0.0-beta.2"
   }
 }

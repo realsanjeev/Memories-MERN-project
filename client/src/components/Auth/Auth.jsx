@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Grid, Typography, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -6,11 +6,8 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { jwtDecode } from 'jwt-decode';
 
-import Icon from './icon';
-import { signin, signup } from '../../actions/auth';
-import { AUTH } from '../../constants/actionTypes';
+import { signin, signup, setAuthData } from '../../store/slices/authSlice';
 import { StyledAvatar, StyledForm, StyledPaper, SubmitButton } from './styles';
-// eslint-disable-next-line
 import Input from './Input';
 
 const initialState = {
@@ -28,11 +25,11 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleShowPassword = () => setShowPassword((prev) => !prev);
 
   const switchMode = () => {
     setForm(initialState);
-    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setIsSignup((prev) => !prev);
     setShowPassword(false);
   };
 
@@ -47,73 +44,96 @@ const SignUp = () => {
   };
 
   const googleSuccess = async (credentialResponse) => {
-    console.log('credentialResponse google success: ', credentialResponse);
     const result = jwtDecode(credentialResponse.credential);
-    console.log(result);
     const token = result?.token || credentialResponse?.credential;
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
-
+      dispatch(setAuthData({ result, token }));
       navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
+  const googleError = () =>
+    alert('Google Sign In was unsuccessful. Try again later');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
-    
-      <Container component="main" maxWidth="xs">
-        <StyledPaper elevation={3}>
-          <StyledAvatar>
-            <LockOutlinedIcon />
-          </StyledAvatar>
-          <Typography component="h1" variant="h5">
-            {isSignup ? 'Sign up' : 'Sign in'}
-          </Typography>
-          <StyledForm onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              {isSignup && (
-                <>
-                  <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                  <Input name="lastName" label="Last Name" handleChange={handleChange} half />
-                </>
-              )}
-              <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-              <Input
-                name="password"
-                label="Password"
-                handleChange={handleChange}
-                type={showPassword ? 'text' : 'password'}
-                handleShowPassword={handleShowPassword}
-              />
-              {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
-            </Grid>
-            <SubmitButton type="submit" fullWidth variant="contained" color="primary">
-              {isSignup ? 'Sign Up' : 'Sign In'}
-            </SubmitButton>
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
-            <GoogleLogin
-              onSuccess={googleSuccess}
-              onError={googleError}
-              startIcon={<Icon />}
+    <Container component="main" maxWidth="xs">
+      <StyledPaper elevation={3}>
+        <StyledAvatar>
+          <LockOutlinedIcon />
+        </StyledAvatar>
+        <Typography component="h1" variant="h5">
+          {isSignup ? 'Sign up' : 'Sign in'}
+        </Typography>
+        <StyledForm onSubmit={handleSubmit}>
+          <Grid container spacing={2} sx={{ width: '100%' }}>
+            {isSignup && (
+              <>
+                <Input
+                  name="firstName"
+                  label="First Name"
+                  handleChange={handleChange}
+                  autoFocus
+                  half
+                  autoComplete="given-name"
+                />
+                <Input
+                  name="lastName"
+                  label="Last Name"
+                  handleChange={handleChange}
+                  half
+                  autoComplete="family-name"
+                />
+              </>
+            )}
+            <Input
+              name="email"
+              label="Email Address"
+              handleChange={handleChange}
+              type="email"
+              autoComplete="email"
             />
-            </GoogleOAuthProvider>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Button onClick={switchMode}>
-                  {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
-                </Button>
-              </Grid>
+            <Input
+              name="password"
+              label="Password"
+              handleChange={handleChange}
+              type={showPassword ? 'text' : 'password'}
+              handleShowPassword={handleShowPassword}
+              autoComplete={isSignup ? 'new-password' : 'current-password'}
+            />
+            {isSignup && (
+              <Input
+                name="confirmPassword"
+                label="Repeat Password"
+                handleChange={handleChange}
+                type="password"
+                autoComplete="new-password"
+              />
+            )}
+          </Grid>
+          <SubmitButton type="submit" fullWidth variant="contained" color="primary">
+            {isSignup ? 'Sign Up' : 'Sign In'}
+          </SubmitButton>
+          <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+            <GoogleLogin onSuccess={googleSuccess} onError={googleError} />
+          </GoogleOAuthProvider>
+          <Grid container sx={{ justifyContent: 'flex-end' }}>
+            <Grid>
+              <Button onClick={switchMode}>
+                {isSignup
+                  ? 'Already have an account? Sign in'
+                  : "Don't have an account? Sign Up"}
+              </Button>
             </Grid>
-          </StyledForm>
-        </StyledPaper>
-      </Container>
-    
+          </Grid>
+        </StyledForm>
+      </StyledPaper>
+    </Container>
   );
 };
 
